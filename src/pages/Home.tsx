@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
 import { State } from '../types/state';
-import SearchForm from '../components/SearchForm';
+
 import ListSaveForm from '../components/ListSaveForm';
 import SearchResult from '../components/SearchResult';
 import { useEffect } from 'react';
+import '../styles/pages/Home.scss';
 
 const Home: React.FC<State> = ({ user, wordList }) => {
   useEffect(() => {
     console.log('Home Rendered');
   }, []);
   return (
-    <div>
-      <SearchForm />
+    <div className='home'>
       <SearchResult />
       <ListSaveForm />
     </div>

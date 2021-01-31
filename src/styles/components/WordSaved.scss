@@ -1,0 +1,23 @@
+.note-preview {
+  background: #fff;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
+  &__word {
+    font-size: 3.5rem;
+  }
+
+  &__example {
+    font-size: 2rem;
+    font-style: italic;
+  }
+
+  &__delete {
+    border: none;
+    margin-top: 2rem;
+    background: var(--color-primary);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-family: inherit;
+  }
+}

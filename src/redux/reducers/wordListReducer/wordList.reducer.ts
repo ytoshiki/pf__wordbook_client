@@ -1,3 +1,4 @@
+import { act } from 'react-dom/test-utils';
 import { WordListType } from '../../actions/actionTypes/wordList/wordListAction';
 import { WordListTypes } from '../../actions/actionTypes/wordList/wordListActionTypes';
 
@@ -12,7 +13,7 @@ const initialState = {
     id: '',
     word: '',
     memo: null,
-    examples: null
+    examples: []
   },
   error: null,
   loading: false,
@@ -29,7 +30,7 @@ interface WordListState {
     word: string;
     memo: null | string;
     examples:
-      | null
+      | []
       | {
           id: string;
           example: string;
@@ -65,7 +66,8 @@ export const wordListReducer = (state: WordListState = initialState, action: Wor
         ...state,
         loading: false,
         error: null,
-        lists: action.payload
+        lists: action.payload,
+        message: ''
       };
     case WordListTypes.GET_LIST:
       return {
@@ -78,7 +80,8 @@ export const wordListReducer = (state: WordListState = initialState, action: Wor
       return {
         ...state,
         loading: false,
-        error: null
+        error: null,
+        message: action.payload
       };
     default:
       return state;

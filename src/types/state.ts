@@ -9,25 +9,25 @@ export interface State {
   };
   search: {
     error: string | null;
-    result: { definition: string; example: null | string; type: string }[];
+    result: { definitions: { definition: string; example: null | string; type: string }[]; word: string };
     loading: boolean;
     images: string[];
   };
   wordList: {
     lists: [
       {
-        id: '';
-        word: '';
+        id: string;
+        word: string;
       }
     ];
     list: {
-      id: '';
-      word: '';
-      memo: null;
-      examples: null;
+      id: string;
+      word: string;
+      memo: null | string;
+      examples: [] | { _id: string; example: string }[];
     };
-    error: null;
-    loading: false;
-    message: '';
+    error: null | string;
+    loading: boolean;
+    message: string;
   };
 }

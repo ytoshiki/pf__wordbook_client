@@ -3,17 +3,23 @@ import { SearchAction } from '../../actions/actionTypes/search/searchAction';
 
 interface SearchState {
   result: {
+    definitions: {
+      word: string;
+      definition: string;
+      example: string | null;
+    }[];
     word: string;
-    definition: string;
-    example: string | null;
-  }[];
+  };
   images: string[];
   loading: boolean;
   error: null | string;
 }
 
 const initialState = {
-  result: [],
+  result: {
+    definitions: [],
+    word: ''
+  },
   images: [],
   loading: false,
   error: null
@@ -47,6 +53,8 @@ export const searchReducer = (state: SearchState = initialState, action: SearchA
         error: null,
         images: action.payload
       };
+    case SearchTypes.SEARCH_RESET:
+      return initialState;
     default:
       return state;
   }

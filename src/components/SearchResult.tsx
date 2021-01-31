@@ -2,42 +2,65 @@ import { connect } from 'react-redux';
 import { State } from '../types/state';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect } from 'react';
+import { resetSearch, store } from '../redux';
+import '../styles/components/SearchResult.scss';
 
 interface SearchProps {
-  result: { definition: string; example: null | string; type: string }[];
+  result: { definitions: { definition: string; example: null | string; type: string }[]; word: string };
   images: string[];
   loading: boolean;
+  resetSearch: any;
 }
 
-const SearchResult: React.FC<SearchProps> = ({ result, images, loading }) => {
+const SearchResult: React.FC<SearchProps> = ({ result, images, loading, resetSearch }) => {
   useEffect(() => {
-    console.log('Search Result Rendered');
-  }, []);
+    resetSearch();
+  }, [resetSearch]);
+
+  const imageList =
+    images &&
+    images.map((image, index) => {
+      return (
+        <li className='search-result__item-img'>
+          <div className='search-result__img'>
+            <img src={image} alt='' />
+          </div>
+        </li>
+      );
+    });
+
+  const definitionList =
+    result.definitions &&
+    result.definitions.map((word, index) => {
+      return (
+        <div className='search-result__block'>
+          <div className='search-result__type'>{word.type}</div>
+          <div className='search-result__usage'>
+            <div className='search-result__index'>{index + 1}</div>
+            <ul className='search-result__list' key={uuidv4()}>
+              <li className='search-result__item definition'>{word.definition}</li>
+              {word.example && <li className='search-result__item example'>{word.example}</li>}
+            </ul>
+          </div>
+        </div>
+      );
+    });
+
   return (
-    <div>
-      {loading && <div>loading...</div>}
-      {result &&
-        result.map((word, index) => {
-          return (
-            <ul key={uuidv4()}>
-              <li>Type: {word.type}</li>
-              <li>Definition: {word.definition}</li>
-              {word.example && <li>Example: {word.example}</li>}
+    <div className='search-result'>
+      <div className='wrapper'>
+        <div className='search-result__inner'>
+          {!result.word && !images.length && <div className='prior-message'>Result Comes Here</div>}
+          {loading && <div>loading...</div>}
+          {result.word && <h2 className='search-result__heading'>{result.word}</h2>}
+          {definitionList}
+          {images && (
+            <ul key={uuidv4()} className='search-result__list-img'>
+              {imageList}
             </ul>
-          );
-        })}
-      {images &&
-        images.map((image, index) => {
-          return (
-            <ul key={uuidv4()}>
-              <li>
-                <div>
-                  <img src={image} alt='' />
-                </div>
-              </li>
-            </ul>
-          );
-        })}
+          )}
+        </div>
+      </div>
     </div>
   );
 };
@@ -50,4 +73,10 @@ const mapStateToProps = (store: State) => {
   };
 };
 
-export default connect(mapStateToProps)(SearchResult);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    resetSearch: () => dispatch(resetSearch())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResult);

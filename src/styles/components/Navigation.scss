@@ -1,5 +1,38 @@
 .navigation {
+  &__inner {
+    min-height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.6rem;
+  }
   &__list {
     display: flex;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    height: 3.5rem;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  &__item {
+    list-style: none;
+    margin: 0 0.6rem;
+
+    button {
+      border: none;
+      background: none;
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    a {
+      text-decoration: none;
+    }
   }
 }

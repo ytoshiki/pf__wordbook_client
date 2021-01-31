@@ -14,7 +14,7 @@ export const searchWord = (word: string) => {
 
       dispatch({
         type: SearchTypes.SEARCH_WORD,
-        payload: response.data.definitions
+        payload: response.data
       });
     } catch (error) {
       dispatch({
@@ -50,5 +50,11 @@ export const searchImage = (word: string) => {
         payload: error.message || 'Server Error'
       });
     }
+  };
+};
+
+export const resetSearch = () => {
+  return function (dispatch: any) {
+    dispatch({ type: SearchTypes.SEARCH_RESET });
   };
 };
