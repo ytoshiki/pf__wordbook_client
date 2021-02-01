@@ -11,6 +11,8 @@ import { logout } from '../redux';
 import '../styles/components/App.scss';
 import Note from '../pages/Note';
 import SearchForm from './SearchForm';
+import QuizBar from './QuizBar';
+import Quiz from '../pages/Quiz';
 
 interface Props {
   user: {
@@ -38,13 +40,21 @@ const App: React.FC<Props> = ({ user, logout }) => {
         <main className='main'>
           <div className='wrapper'>
             <div className='main__inner'>
-              {isLoggedIn && <ListNavigation />}
+              {isLoggedIn && (
+                <div className='main__side'>
+                  {<QuizBar />}
+                  {<ListNavigation />}
+                </div>
+              )}
               <Switch>
                 <Route exact path='/'>
                   <Home />
                 </Route>
                 <Route path='/note/:id'>
                   <Note />
+                </Route>
+                <Route path='/quiz'>
+                  <Quiz />
                 </Route>
                 <Route path='/signup'>
                   <Signup />

@@ -86,6 +86,14 @@
     color: #fff;
     font-size: inherit;
     font-family: inherit;
+
+    &:disabled,
+    &[disabled] {
+      // border: 1px solid #999999;
+      // background-color: #cccccc;
+      // // color: #666666;
+      opacity: 0.2;
+    }
   }
 
   label {
@@ -111,9 +119,21 @@
     color: #fff;
   }
 
+  .disable {
+    opacity: 0.2;
+  }
+
   textarea {
     font-size: 1.9rem;
     font-weight: inherit;
     font-family: inherit;
+  }
+
+  .warning {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    font-style: italic;
+    text-transform: none;
+    vertical-align: top;
   }
 }

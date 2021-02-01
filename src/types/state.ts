@@ -26,6 +26,10 @@ export interface State {
       memo: null | string;
       examples: [] | { _id: string; example: string }[];
     };
+    quiz: {
+      answer: string;
+      example: { _id: string; example: string }[];
+    };
     error: null | string;
     loading: boolean;
     message: string;

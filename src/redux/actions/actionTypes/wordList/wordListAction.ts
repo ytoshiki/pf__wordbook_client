@@ -42,4 +42,12 @@ interface WordListDeleteList {
   payload: string;
 }
 
-export type WordListType = WordListActionStart | WordListActionError | WordListSaveList | WordListGetList | WordListGetLists | WordListDeleteList;
+interface WordListQuizList {
+  type: WordListTypes.QUIX_LIST;
+  payload: {
+    answer: string;
+    example: string[];
+  };
+}
+
+export type WordListType = WordListActionStart | WordListActionError | WordListSaveList | WordListGetList | WordListGetLists | WordListDeleteList | WordListQuizList;

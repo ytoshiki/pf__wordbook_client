@@ -1,14 +1,36 @@
 import axios from 'axios';
-import { stringify } from 'querystring';
-import SearchForm from '../../../components/SearchForm';
-import { SearchTypes } from '../actionTypes/search/searchActionTypes';
-
 import { WordListTypes } from '../actionTypes/wordList/wordListActionTypes';
+import { store } from '../../store/store';
 
 interface SaveData {
   word: string;
   examples: string[];
   memo: null | string;
+}
+
+interface WordListData {
+  lists: {
+    id: string;
+    word: string;
+  }[];
+  list: {
+    id: string;
+    word: string;
+    memo: null | string;
+    examples:
+      | []
+      | {
+          id: string;
+          example: string;
+        }[];
+  };
+  quiz: {
+    answer: string;
+    example: string[];
+  };
+  error: null | string;
+  loading: boolean;
+  message: null | string;
 }
 
 export const saveList = (data: SaveData) => {
@@ -172,5 +194,26 @@ export const deleteList = (id: string) => {
         payload: error.message || 'Failed to delete list'
       });
     }
+  };
+};
+
+export const takeQuiz = () => {
+  return (dispatch: any) => {
+    const wordList: WordListData = store.getState().wordList;
+
+    if (!wordList.list) {
+      return dispatch({
+        type: WordListTypes.ACTION_ERROR,
+        payload: 'Cound not find List: List is not set'
+      });
+    }
+
+    dispatch({
+      type: WordListTypes.QUIX_LIST,
+      payload: {
+        answer: wordList.list.word,
+        example: wordList.list.examples
+      }
+    });
   };
 };

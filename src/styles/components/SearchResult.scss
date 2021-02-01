@@ -73,4 +73,58 @@
 .prior-message {
   font-size: 1.6rem;
   font-weight: 300;
+
+  display: flex;
+
+  &__content {
+    flex: 1;
+
+    h1 {
+      margin: 0.75rem 0 2rem 0;
+    }
+
+    h3 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      margin: 0 0 1rem 0;
+    }
+
+    .svg-wrapper {
+      svg {
+        width: 100%;
+        animation: updown infinite 3s ease;
+      }
+    }
+
+    @keyframes updown {
+      0% {
+        transform: translateY(0rem);
+      }
+
+      50% {
+        transform: translateY(1rem);
+      }
+
+      100% {
+        transform: translateY(0rem);
+      }
+    }
+
+    ul {
+      margin: 0.75rem 0;
+      li {
+        list-style: none;
+        font-size: 2.2rem;
+        font-weight: 300;
+        margin-bottom: 0.75rem;
+      }
+    }
+  }
+
+  &__image {
+    flex: 1;
+    img {
+      width: 100%;
+    }
+  }
 }

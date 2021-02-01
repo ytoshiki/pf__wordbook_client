@@ -15,6 +15,10 @@ const initialState = {
     memo: null,
     examples: []
   },
+  quiz: {
+    answer: '',
+    example: []
+  },
   error: null,
   loading: false,
   message: null
@@ -35,6 +39,13 @@ interface WordListState {
           id: string;
           example: string;
         }[];
+  };
+  quiz: {
+    answer: string;
+    example: {
+      id: string;
+      example: string;
+    }[];
   };
   error: null | string;
   loading: boolean;
@@ -81,7 +92,15 @@ export const wordListReducer = (state: WordListState = initialState, action: Wor
         ...state,
         loading: false,
         error: null,
-        message: action.payload
+        message: action.payload,
+        quiz: []
+      };
+    case WordListTypes.QUIX_LIST:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        quiz: action.payload
       };
     default:
       return state;

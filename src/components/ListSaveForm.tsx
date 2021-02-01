@@ -26,6 +26,11 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
   const [example, setExample] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState('');
   const [focus, setOnFocus] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
+  const [error, setError] = useState({
+    word: '',
+    sentense: ''
+  });
 
   useEffect(() => {
     setExample('');
@@ -54,6 +59,10 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
   const addExample = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     if (!example) return;
+    const sentence = example.trim();
+    if (sentence.split(' ').length < 2) {
+      return;
+    }
     setForm({
       ...form,
       examples: form.examples.concat(example)
@@ -63,14 +72,41 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!form.word || form.examples.length < 1) return;
-    await saveList(form);
-    setForm({
-      ...form,
-      word: '',
-      memo: null,
-      examples: []
-    });
+    if (!form.word) {
+      setError({
+        ...error,
+        word: 'Word is missing'
+      });
+
+      return;
+    }
+
+    if (form.examples.length < 1) {
+      if (example && example.trim().split(' ').length > 1) {
+        setForm({
+          ...form,
+          examples: form.examples.concat(example)
+        });
+
+        setErrMsg('Click Again');
+
+        return;
+      } else {
+        setError({
+          ...error,
+          sentense: 'At least 2 words required'
+        });
+        return;
+      }
+    } else {
+      await saveList(form);
+      setForm({
+        ...form,
+        word: '',
+        memo: null,
+        examples: []
+      });
+    }
   };
 
   const onClickOpen = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -85,6 +121,10 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
   const onClickClose = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     setOnFocus(false);
+  };
+
+  const exampleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setExample(e.target.value);
   };
 
   return (
@@ -120,20 +160,23 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
         </div>
         <div className='save-form__block'>
           <label htmlFor=''>
-            sentense <span className='mandatory-main'>*</span>
+            sentense <span className='mandatory-main'>*</span> <span className='warning'>Please press Add</span>
           </label>
           {form.examples && form.examples.map((example, index) => <div key={index}>{example}</div>)}
-          <input type='text' disabled={isLoggedIn ? false : true} name='example' onChange={(e) => setExample(e.target.value)} value={example} />
-          <div className='add' onClick={addExample}>
+          <input placeholder='Two words at least' type='text' disabled={isLoggedIn ? false : true} name='example' onChange={(e) => exampleChange(e)} value={example} />
+          <div className={`add ${(!example || example.trim().split(' ').length < 2) && 'disable'}`} onClick={addExample}>
             Add <span className='mandatory'>*</span>
           </div>
         </div>
 
         <div className='save-form__block'>
           <label htmlFor=''>memo</label>
-          <textarea name='memo' disabled={isLoggedIn ? false : true} id='' placeholder='Write down anything you want' onChange={memoChange} value={form.memo || ''}></textarea>
+          <textarea name='memo' disabled={isLoggedIn ? false : true} id='' onChange={memoChange} value={form.memo || ''}></textarea>
         </div>
-        <button className='save-form__save'>Save</button>
+        <button className='save-form__save' disabled={!form.word || form.examples.length < 1 ? true : false}>
+          Save
+        </button>
+        {errMsg && <p>Ops! {errMsg}</p>}
       </form>
     </div>
   );
