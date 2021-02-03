@@ -28,10 +28,8 @@ const App: React.FC<Props> = ({ user, logout }) => {
   const [isLoggedIn, setIsLoggedIn] = useState('');
   useEffect(() => {
     setIsLoggedIn(sessionStorage.getItem('jwt') || '');
-    console.log('App rendered');
   }, [user, setIsLoggedIn, logout]);
 
-  console.log(isLoggedIn);
   return (
     <Router>
       <>

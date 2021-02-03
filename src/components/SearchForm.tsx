@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { resetSearch, searchImage, searchWord } from '../redux';
 import { connect } from 'react-redux';
 import { State } from '../types/state';
@@ -20,10 +20,6 @@ const SearchForm: React.FC<SearchProps> = ({ searchWord, searchImage, images, re
   const [word, setWord] = useState('');
   const [imageName, setImageName] = useState('');
   const history = useHistory();
-
-  useEffect(() => {
-    console.log('SearchForm Rendered');
-  }, []);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,9 +56,9 @@ const SearchForm: React.FC<SearchProps> = ({ searchWord, searchImage, images, re
       <div className='wrapper'>
         <div className='search-form__inner'>
           <form className={`search-form__form ${loggedStyle_form}`} action='' onSubmit={onSubmit}>
-            <label htmlFor=''>Search For a Word</label>
+            {/* <label htmlFor=''>Search For a Word</label> */}
             <div className='search-form__input-wrapper'>
-              <input placeholder='Type here...' className='search-form__input' type='text' value={word} onChange={(e) => setWord(e.target.value)} />
+              <input placeholder='Search For a Word' className='search-form__input' type='text' value={word} onChange={(e) => setWord(e.target.value)} />
               <div className='search-form__logo'>
                 <SearchLogo />
               </div>

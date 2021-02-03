@@ -2,11 +2,20 @@
 
 html {
   font-size: 62.5%;
+
+  @media (max-width: 900px) {
+    font-size: 55%;
+  }
+
+  @media (max-width: 530px) {
+    font-size: 50%;
+  }
 }
 
 body {
   box-sizing: border-box;
   font-size: 1.6rem;
+
   font-family: 'Poppins', sans-serif;
   background: var(--color-secondary);
 }
@@ -21,6 +30,10 @@ body {
 
 #root {
   min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
 }
 
 .wrapper {

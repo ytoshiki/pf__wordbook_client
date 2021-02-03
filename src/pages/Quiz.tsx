@@ -39,9 +39,8 @@ const Quiz: React.FC<QuizProps> = ({ lists, getList, list, takeQuiz, quiz, succe
 
   useEffect(() => {
     async function init() {
-      console.log('Quiz rendered');
       const listClone = lists.map((list) => Object.assign({}, list));
-      console.log(listClone);
+
       const randomNum = Math.floor(Math.random() * listClone.length);
       await getList(listClone[randomNum].id);
       takeQuiz();

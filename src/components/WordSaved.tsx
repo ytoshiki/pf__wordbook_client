@@ -1,7 +1,7 @@
 import { deleteList, getList } from '../redux';
 import { State } from '../types/state';
 import { connect } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import '../styles/components/WordSaved.scss';
 
@@ -34,9 +34,9 @@ const WordSaved: React.FC<WordSavedProps> = ({ list, loading, getList, deleteLis
   if (list.examples.length > 0) {
     exampleArray = list.examples.map((ex: { _id: string; example: string }) => {
       return (
-        <p key={ex._id} className='note-preview__example'>
+        <li key={ex._id} className='note-preview__example'>
           {ex.example}
-        </p>
+        </li>
       );
     });
   }
@@ -47,7 +47,7 @@ const WordSaved: React.FC<WordSavedProps> = ({ list, loading, getList, deleteLis
         <div>
           <div>
             <h2 className='note-preview__word'>{list.word}</h2>
-            {exampleArray}
+            <ul>{exampleArray}</ul>
             {list.memo && <p className='note-preview__memo'>{list.memo}</p>}
           </div>
           <div>

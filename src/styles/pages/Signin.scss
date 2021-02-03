@@ -6,6 +6,10 @@
   &__sidebar {
     flex-basis: 40%;
 
+    @media (max-width: 800px) {
+      display: none;
+    }
+
     img {
       width: 100%;
     }
@@ -53,4 +57,8 @@
       outline: none;
     }
   }
+}
+
+.form-error {
+  color: rgb(233, 24, 24);
 }

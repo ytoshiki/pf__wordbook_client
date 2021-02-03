@@ -9,7 +9,7 @@ export const searchWord = (word: string) => {
     try {
       const response = await axios.get(process.env.REACT_APP_API_ENDPOINT + '/search/' + word);
       if (!response.data) {
-        throw new Error('Not Found');
+        throw new Error('Your search terms did not match any entries.');
       }
 
       dispatch({
@@ -19,7 +19,7 @@ export const searchWord = (word: string) => {
     } catch (error) {
       dispatch({
         type: SearchTypes.ACTION_ERROR,
-        payload: error.message || 'Server Error'
+        payload: 'Your search terms did not match any entries.'
       });
     }
   };
@@ -33,7 +33,7 @@ export const searchImage = (word: string) => {
     try {
       const response = await axios.get(process.env.REACT_APP_API_ENDPOINT + '/images/' + word);
       if (!response.data) {
-        throw new Error('Not Found');
+        throw new Error('Your search terms did not match any entries.');
       }
 
       const images = response.data.data.map((image: { previewURL: string }) => {
@@ -47,7 +47,7 @@ export const searchImage = (word: string) => {
     } catch (error) {
       dispatch({
         type: SearchTypes.ACTION_ERROR,
-        payload: error.message || 'Server Error'
+        payload: 'Your search terms did not match any entries.'
       });
     }
   };

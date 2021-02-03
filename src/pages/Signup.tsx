@@ -5,23 +5,42 @@ import { signup } from '../redux';
 import { SignUpType } from '../types/user';
 import SignupImage from '../assets/images/signup.png';
 import '../styles/pages/Signup.scss';
+import { State } from '../types/state';
 
 interface SignupProps {
   signup: (credential: SignUpType) => void;
+  error: null | string;
+  user: string;
 }
 
-const Signup: React.FC<SignupProps> = ({ signup }) => {
+const Signup: React.FC<SignupProps> = ({ signup, error, user }) => {
   const [form, setForm] = useState({
     username: '',
     email: '',
     password: ''
   });
 
+  const [formError, setFormError] = useState({
+    email: '',
+    password: '',
+    username: ''
+  });
+
+  const [serverError, setServerError] = useState('');
+
   const history = useHistory();
 
   useEffect(() => {
-    console.log('SignUp Rendered');
-  }, []);
+    if (user) {
+      history.push('/');
+    }
+
+    const isLoggedIn = sessionStorage.getItem('jwt');
+    if (isLoggedIn) {
+      history.push('/');
+    }
+    setServerError(error ? 'Either username or email is already taken' : '');
+  }, [error, signup, history, user]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -30,10 +49,28 @@ const Signup: React.FC<SignupProps> = ({ signup }) => {
     });
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!form.email || !form.username || !form.password) {
+      setFormError({
+        ...formError,
+        username: !form.username ? 'Username must be provided' : '',
+        email: !form.email ? 'Email must be provided' : '',
+        password: !form.password ? 'Password must be provided' : ''
+      });
+      return;
+    }
+
+    if (form.password.length < 6) {
+      setFormError({
+        username: '',
+        email: '',
+        password: 'Password must be at least 6 characters'
+      });
+      return;
+    }
     signup(form);
-    history.push('/');
   };
 
   return (
@@ -56,12 +93,14 @@ const Signup: React.FC<SignupProps> = ({ signup }) => {
               </label>
 
               <input className='signup__input' type='text' value={form.username} name='username' onChange={onChange} />
+              {formError.username && <div className='form-error'>{formError.username}</div>}
             </div>
             <div className='signup__input-block'>
               <label className='signup__label' htmlFor=''>
                 Email
               </label>
               <input className='signup__input' type='email' value={form.email} name='email' onChange={onChange} />
+              {formError.email && <div className='form-error'>{formError.email}</div>}
             </div>
             <div className='signup__input-block'>
               <label className='signup__label' htmlFor=''>
@@ -69,8 +108,10 @@ const Signup: React.FC<SignupProps> = ({ signup }) => {
               </label>
 
               <input className='signup__input' type='password' value={form.password} name='password' onChange={onChange} />
-              <div>Use at least 6 characters</div>
+              <div>*Include at least 6 characters</div>
+              {formError.password && <div className='form-error'>{formError.password}</div>}
             </div>
+            {serverError && <div className='form-error'>{serverError}</div>}
             <button className='signup__button'>Sign Up</button>
           </form>
         </div>
@@ -79,8 +120,15 @@ const Signup: React.FC<SignupProps> = ({ signup }) => {
   );
 };
 
+const mapStateToProps = (store: State) => {
+  return {
+    error: store.user.error,
+    user: store.user.user.token
+  };
+};
+
 const mapDispatchToProps = (dispatch: any) => ({
   signup: (credintials: SignUpType) => dispatch(signup(credintials))
 });
 
-export default connect(null, mapDispatchToProps)(Signup);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

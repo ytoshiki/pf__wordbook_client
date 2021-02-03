@@ -13,9 +13,14 @@ interface QuizProps {
 const QuizBar: React.FC<QuizProps> = ({ lists }) => {
   return (
     <div className='quiz-bar'>
-      Quiz
-      <br />
-      {lists.length > 0 && <Link to='/quiz'>Take Quiz</Link>}
+      <h3 className='quiz-bar__heading'>Quiz</h3>
+      {lists.length > 0 ? (
+        <Link to='/quiz' className='quiz-bar__take'>
+          Start Quizs
+        </Link>
+      ) : (
+        <div className='quiz-bar__suggest'>Let's create your word list!</div>
+      )}
     </div>
   );
 };

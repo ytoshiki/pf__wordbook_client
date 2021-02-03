@@ -1,4 +1,7 @@
 .navigation {
+  @media only screen and (max-width: 128rem) {
+    padding: 0 2rem;
+  }
   &__inner {
     min-height: 6rem;
     display: flex;

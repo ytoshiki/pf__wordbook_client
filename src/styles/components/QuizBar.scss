@@ -2,4 +2,33 @@
   padding: 2rem;
   margin-bottom: 2rem;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
+  @media (max-width: 1100px) {
+    flex: 1;
+    margin-bottom: 0;
+    margin-right: 1rem;
+  }
+
+  &__heading {
+    text-align: center;
+    margin: 1.3rem;
+    font-size: 2rem;
+  }
+
+  &__take {
+    text-decoration: none;
+    padding: 0.75rem 2rem;
+    background: var(--color-primary);
+    font-size: 2rem;
+    color: #fff;
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.3rem;
+    &:focus,
+    &:visited {
+      color: #fff;
+    }
+  }
 }

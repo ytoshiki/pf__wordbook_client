@@ -57,7 +57,8 @@ export const userReducer = (state: UserState = initialState, action: UserAction)
     case UserTypes.ACTION_START:
       return {
         ...state,
-        loading: true
+        loading: true,
+        error: null
       };
     default:
       return state;

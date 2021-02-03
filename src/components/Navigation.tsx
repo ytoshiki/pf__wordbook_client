@@ -1,5 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
+
 import '../styles/components/Navigation.scss';
 import logo from '../assets/images/applogo.png';
 
@@ -15,16 +15,16 @@ const Navigation: React.FC<NavigationProps> = ({ logout, isLoggedIn }) => {
     logout();
     history.push('/');
   };
-  useEffect(() => {
-    console.log('Navigation rendered');
-  }, []);
+
   return (
     <nav className='navigation'>
       <div className='wrapper'>
         <div className='navigation__inner'>
-          <div className='navigation__logo'>
-            <img src={logo} alt='' />
-          </div>
+          <Link to='/'>
+            <div className='navigation__logo'>
+              <img src={logo} alt='' />
+            </div>
+          </Link>
           <ul className='navigation__list'>
             <li className='navigation__item'>
               <Link to='/'>Home</Link>

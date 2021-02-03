@@ -27,17 +27,9 @@ const ListNavigation: React.FC<ListNavigationProps> = ({ getLists, lists, loadin
   const [sortList, setSortList] = useState<SortedList[]>([]);
 
   useEffect(() => {
-    console.log('ListNavigation Rendered');
-
     getLists();
 
     setIsSuccess(success);
-
-    // if (success) {
-    //   console.log('List Navigation Rendered x 2');
-    //   setIsSuccess(String(uuidv4()));
-    //   getLists();
-    // }
   }, [getLists, setIsSuccess, success, sortList]);
 
   const onClick = () => {

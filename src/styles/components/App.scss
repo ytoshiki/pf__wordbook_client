@@ -1,6 +1,17 @@
 .main {
+  @media (max-width: 1280px) {
+    padding: 0 2rem;
+  }
+
+  @media (max-width: 530px) {
+    padding: 0;
+  }
   &__inner {
     display: flex;
+
+    @media (max-width: 1100px) {
+      flex-direction: column;
+    }
   }
 
   &__side {
@@ -8,5 +19,13 @@
     margin-right: 2%;
     margin-top: 2rem;
     margin-bottom: 2rem;
+
+    @media (max-width: 1100px) {
+      flex-basis: 100%;
+      order: 2;
+      margin-top: 0;
+      display: flex;
+      margin-right: 0;
+    }
   }
 }

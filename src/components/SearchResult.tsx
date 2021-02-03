@@ -12,9 +12,10 @@ interface SearchProps {
   images: string[];
   loading: boolean;
   resetSearch: any;
+  error: string | null;
 }
 
-const SearchResult: React.FC<SearchProps> = ({ result, images, loading, resetSearch }) => {
+const SearchResult: React.FC<SearchProps> = ({ result, images, loading, resetSearch, error }) => {
   useEffect(() => {
     resetSearch();
   }, [resetSearch]);
@@ -52,7 +53,8 @@ const SearchResult: React.FC<SearchProps> = ({ result, images, loading, resetSea
     <div className='search-result'>
       <div className='wrapper'>
         <div className='search-result__inner'>
-          {!result.word && !images.length && (
+          {error && <div className='no-match'>{error}</div>}
+          {!result.word && !images.length && !error && (
             <div className='prior-message'>
               <div className='prior-message__content'>
                 <h1>Learn New Words Every day!</h1>
@@ -89,7 +91,8 @@ const mapStateToProps = (store: State) => {
   return {
     result: store.search.result,
     images: store.search.images,
-    loading: store.search.loading
+    loading: store.search.loading,
+    error: store.search.error
   };
 };
 
