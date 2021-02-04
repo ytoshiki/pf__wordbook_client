@@ -35,18 +35,17 @@ const Quiz: React.FC<QuizProps> = ({ lists, getList, list, takeQuiz, quiz, succe
 
   const [result, setResult] = useState('');
   const [correct, setCorrect] = useState(false);
-  // const [listClone, setListClone] = useState<List[]>([]);
 
   useEffect(() => {
     async function init() {
       const listClone = lists.map((list) => Object.assign({}, list));
 
-      const randomNum = Math.floor(Math.random() * listClone.length);
+      let randomNum = Math.floor(Math.random() * listClone.length);
+
       await getList(listClone[randomNum].id);
+
       takeQuiz();
       setCorrect(false);
-      // setIsSuccess(success);
-      // console.log(success);
     }
 
     init();
@@ -64,11 +63,11 @@ const Quiz: React.FC<QuizProps> = ({ lists, getList, list, takeQuiz, quiz, succe
 
     setResult('');
 
-    if (guess === quiz.answer) {
+    if (guess.trim().toLowerCase() === quiz.answer) {
       setResult('Correct');
     }
 
-    if (guess !== quiz.answer) {
+    if (guess.trim().toLowerCase() !== quiz.answer) {
       setResult('Wrong');
     }
   };
@@ -78,7 +77,8 @@ const Quiz: React.FC<QuizProps> = ({ lists, getList, list, takeQuiz, quiz, succe
     for (let i = 0; i < quiz.answer.length; i++) {
       keyword += '_';
     }
-    return example.replace(quiz.answer, keyword);
+
+    return example.replace(quiz.answer, keyword).replace(quiz.answer.charAt(0).toUpperCase() + quiz.answer.slice(1), keyword);
   };
 
   const displayQuiz = quiz.answer ? (

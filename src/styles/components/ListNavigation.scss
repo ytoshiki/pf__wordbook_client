@@ -64,5 +64,19 @@
     margin: 0.3rem 0;
     padding-left: 0.5rem;
     font-size: 1.75rem;
+
+    a {
+      text-decoration: none;
+      transition: all ease 0.3s;
+      &:visited,
+      &:focus {
+        color: #282828;
+      }
+
+      &:hover {
+        padding-left: 1rem;
+        text-transform: uppercase;
+      }
+    }
   }
 }

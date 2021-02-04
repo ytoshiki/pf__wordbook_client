@@ -32,10 +32,29 @@
       background: none;
       font-family: inherit;
       font-size: inherit;
+
+      &:hover {
+        text-transform: uppercase;
+        color: var(--color-primary);
+      }
+
+      &:focus {
+        outline: none;
+      }
     }
 
     a {
       text-decoration: none;
+
+      &:visited,
+      &:focus {
+        color: #282828;
+      }
+
+      &:hover {
+        text-transform: uppercase;
+        color: var(--color-primary);
+      }
     }
   }
 }

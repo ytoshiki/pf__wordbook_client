@@ -16,7 +16,7 @@ const QuizBar: React.FC<QuizProps> = ({ lists }) => {
       <h3 className='quiz-bar__heading'>Quiz</h3>
       {lists.length > 0 ? (
         <Link to='/quiz' className='quiz-bar__take'>
-          Start Quizs
+          Start Quizes
         </Link>
       ) : (
         <div className='quiz-bar__suggest'>Let's create your word list!</div>

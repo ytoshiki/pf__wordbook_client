@@ -58,7 +58,7 @@ const SearchResult: React.FC<SearchProps> = ({ result, images, loading, resetSea
             <div className='prior-message'>
               <div className='prior-message__content'>
                 <h1>Learn New Words Every day!</h1>
-                <h3>How you can get most from this app</h3>
+                <h3>How you can get the most out of this app</h3>
                 <div className='svg-wrapper'>
                   <ChevronDown />
                 </div>

@@ -43,9 +43,10 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
   }, [setIsLoggedIn, user]);
 
   const wordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const wordSaved = e.target.value.trim().toLowerCase();
     setForm({
       ...form,
-      word: e.target.value
+      word: wordSaved
     });
   };
 
@@ -136,7 +137,7 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
               Got It
             </button>
             <div className='save-form__modal-content'>
-              You need to register your count.
+              You need to register your account.
               <br />
               <Link to='/signup' className='link'>
                 sign up
