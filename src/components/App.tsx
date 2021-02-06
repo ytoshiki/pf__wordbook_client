@@ -13,6 +13,7 @@ import Note from '../pages/Note';
 import SearchForm from './SearchForm';
 import QuizBar from './QuizBar';
 import Quiz from '../pages/Quiz';
+import NotFoundPage from '../pages/NotFoundPage';
 
 interface Props {
   user: {
@@ -60,6 +61,7 @@ const App: React.FC<Props> = ({ user, logout }) => {
                 <Route path='/signin'>
                   <Signin />
                 </Route>
+                <Route component={NotFoundPage} />
               </Switch>
             </div>
           </div>

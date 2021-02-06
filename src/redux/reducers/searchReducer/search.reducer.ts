@@ -54,7 +54,16 @@ export const searchReducer = (state: SearchState = initialState, action: SearchA
         images: action.payload
       };
     case SearchTypes.SEARCH_RESET:
-      return initialState;
+      return {
+        ...state,
+        result: {
+          definitions: [],
+          word: ''
+        },
+        images: [],
+        loading: false,
+        error: null
+      };
     default:
       return state;
   }

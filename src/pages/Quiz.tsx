@@ -2,7 +2,7 @@ import { getList, takeQuiz } from '../redux';
 import '../styles/pages/Quiz.scss';
 import { State } from '../types/state';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+
 import { useEffect, useState } from 'react';
 import { ReactComponent as CheckSVG } from '../assets/images/check.svg';
 import { ReactComponent as CloseSVG } from '../assets/images/close.svg';
