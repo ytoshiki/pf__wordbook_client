@@ -2,7 +2,6 @@ import { SearchTypes } from './searchActionTypes';
 
 export interface SuccessPayload {
   definitions: { word: string; definition: string; example: string | null }[];
-  word: string;
 }
 
 interface SearchActionError {
@@ -16,7 +15,7 @@ interface SearchActionStart {
 
 interface SearchWord {
   type: SearchTypes.SEARCH_WORD;
-  payload: SuccessPayload[];
+  payload: SuccessPayload;
 }
 
 interface SearchImage {

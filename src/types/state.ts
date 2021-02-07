@@ -9,7 +9,7 @@ export interface State {
   };
   search: {
     error: string | null;
-    result: { definitions: { definition: string; example: null | string; type: string }[]; word: string };
+    result: { definitions: { word: string; definition: string; example: null | string; type: string }[] };
     loading: boolean;
     images: string[];
   };

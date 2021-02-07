@@ -7,8 +7,8 @@ interface SearchState {
       word: string;
       definition: string;
       example: string | null;
+      type: string;
     }[];
-    word: string;
   };
   images: string[];
   loading: boolean;
@@ -17,8 +17,7 @@ interface SearchState {
 
 const initialState = {
   result: {
-    definitions: [],
-    word: ''
+    definitions: []
   },
   images: [],
   loading: false,

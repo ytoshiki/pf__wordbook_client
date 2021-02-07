@@ -11,7 +11,7 @@ interface SearchProps {
   searchImage: any;
   resetSearch: any;
   images: string[];
-  result: { definitions: { definition: string; example: null | string; type: string }[]; word: string };
+  result: { definitions: { word: string; definition: string; example: null | string; type: string }[] };
   isLoggedIn: string;
 }
 
@@ -27,7 +27,7 @@ const SearchForm: React.FC<SearchProps> = ({ searchWord, searchImage, images, re
     if (!word) return;
     history.push('/');
 
-    if (images.length > 0 && result.word) {
+    if (images.length > 0 && result.definitions.length > 0) {
       resetSearch();
     }
 
@@ -38,7 +38,7 @@ const SearchForm: React.FC<SearchProps> = ({ searchWord, searchImage, images, re
 
       searchWord(word);
     } else if (button === 2) {
-      if (result.word !== word) {
+      if (result.definitions[0].word !== word) {
         resetSearch();
       }
 

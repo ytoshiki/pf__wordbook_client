@@ -8,7 +8,7 @@ import TopImage from '../assets/images/top.png';
 import { ReactComponent as ChevronDown } from '../assets/images/chevron-down.svg';
 
 interface SearchProps {
-  result: { definitions: { definition: string; example: null | string; type: string }[]; word: string };
+  result: { definitions: { word: string; definition: string; example: null | string; type: string }[] };
   images: string[];
   loading: boolean;
   resetSearch: any;
@@ -19,6 +19,8 @@ const SearchResult: React.FC<SearchProps> = ({ result, images, loading, resetSea
   useEffect(() => {
     resetSearch();
   }, [resetSearch]);
+
+  const wordSearched = result.definitions.length > 0 ? result.definitions[0].word : '';
 
   const imageList =
     images &&
@@ -54,7 +56,7 @@ const SearchResult: React.FC<SearchProps> = ({ result, images, loading, resetSea
       <div className='wrapper'>
         <div className='search-result__inner'>
           {error && <div className='no-match'>{error}</div>}
-          {!result.word && !images.length && !error && (
+          {!wordSearched && !images.length && !error && (
             <div className='prior-message'>
               <div className='prior-message__content'>
                 <h1>Learn New Words Every day!</h1>
@@ -74,7 +76,7 @@ const SearchResult: React.FC<SearchProps> = ({ result, images, loading, resetSea
             </div>
           )}
           {loading && <div>loading...</div>}
-          {result.word && <h2 className='search-result__heading'>{result.word}</h2>}
+          {wordSearched && <h2 className='search-result__heading'>{wordSearched}</h2>}
           {definitionList}
           {images && (
             <ul key={uuidv4()} className='search-result__list-img'>

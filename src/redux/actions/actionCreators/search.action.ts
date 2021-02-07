@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { SearchTypes } from '../../actions/actionTypes/search/searchActionTypes';
 
+interface Word {
+  partOfSpeech: string;
+  text: string;
+  word: string;
+}
+
 export const searchWord = (word: string) => {
   return async (dispatch: any) => {
     dispatch({
@@ -8,13 +14,26 @@ export const searchWord = (word: string) => {
     });
     try {
       const response = await axios.get(process.env.REACT_APP_API_ENDPOINT + '/search/' + word);
-      if (!response.data) {
+      if (response.data.success === false) {
         throw new Error('Your search terms did not match any entries.');
       }
 
+      const returnedData = response.data.map((word: Word) => {
+        return {
+          word: word.word,
+          definition: word.text,
+          example: null,
+          type: word.partOfSpeech
+        };
+      });
+
+      console.log(returnedData);
+
       dispatch({
         type: SearchTypes.SEARCH_WORD,
-        payload: response.data
+        payload: {
+          definitions: returnedData
+        }
       });
     } catch (error) {
       dispatch({
