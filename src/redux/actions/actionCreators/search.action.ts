@@ -15,12 +15,10 @@ export const searchWord = (word: string) => {
     try {
       const response = await axios.get(process.env.REACT_APP_API_ENDPOINT + '/search/' + word);
       if (response.data.success === false) {
-        alert('response data success false');
-        throw new Error('Your search terms did not match any entries.');
+        throw new Error('Your search terms did not match any entries. Not success');
       }
 
       const returnedData = response.data.map((word: Word) => {
-        alert(`responseData: ${response.data}`);
         return {
           word: word.word,
           definition: word.text,
@@ -28,8 +26,6 @@ export const searchWord = (word: string) => {
           type: word.partOfSpeech
         };
       });
-
-      console.log(returnedData);
 
       dispatch({
         type: SearchTypes.SEARCH_WORD,
@@ -40,7 +36,7 @@ export const searchWord = (word: string) => {
     } catch (error) {
       dispatch({
         type: SearchTypes.ACTION_ERROR,
-        payload: 'Your search terms did not match any entries.'
+        payload: error.message
       });
     }
   };
@@ -54,7 +50,7 @@ export const searchImage = (word: string) => {
     try {
       const response = await axios.get(process.env.REACT_APP_API_ENDPOINT + '/images/' + word);
       if (!response.data) {
-        throw new Error('Your search terms did not match any entries.');
+        throw new Error('Your search terms did not match any entries. Response error');
       }
 
       const images = response.data.data.map((image: { previewURL: string }) => {
@@ -68,7 +64,7 @@ export const searchImage = (word: string) => {
     } catch (error) {
       dispatch({
         type: SearchTypes.ACTION_ERROR,
-        payload: 'Your search terms did not match any entries.'
+        payload: error.message
       });
     }
   };
