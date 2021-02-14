@@ -24,14 +24,6 @@ const SearchForm: React.FC<SearchProps> = ({ searchWord, searchImage, images, re
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    alert(`
-      button: ${button},
-      word: ${word},
-      imageName, ${imageName},
-      images: ${images},
-      result: ${result}
-    `);
-
     if (!word) return;
     history.push('/');
 

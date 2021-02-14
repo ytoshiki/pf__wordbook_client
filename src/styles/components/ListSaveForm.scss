@@ -23,6 +23,7 @@
 
   &__modal-inner {
     position: relative;
+    z-index: 99;
     width: 50%;
     height: 50%;
     background: #fff;
