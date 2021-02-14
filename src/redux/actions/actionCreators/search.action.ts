@@ -15,7 +15,7 @@ export const searchWord = (word: string) => {
     try {
       const response = await axios.get(process.env.REACT_APP_API_ENDPOINT + '/search/' + word);
       if (response.data.success === false) {
-        throw new Error('Your search terms did not match any entries. Not success');
+        throw new Error('Your search terms did not match any entries');
       }
 
       const returnedData = response.data.map((word: Word) => {
@@ -50,7 +50,7 @@ export const searchImage = (word: string) => {
     try {
       const response = await axios.get(process.env.REACT_APP_API_ENDPOINT + '/images/' + word);
       if (!response.data) {
-        throw new Error('Your search terms did not match any entries. Response error');
+        throw new Error('Your search terms did not match any entries');
       }
 
       const images = response.data.data.map((image: { previewURL: string }) => {

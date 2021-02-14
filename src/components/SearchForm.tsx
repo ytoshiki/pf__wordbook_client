@@ -27,7 +27,9 @@ const SearchForm: React.FC<SearchProps> = ({ searchWord, searchImage, images, re
     alert(`
       button: ${button},
       word: ${word},
-
+      imageName, ${imageName},
+      images: ${images},
+      result: ${result}
     `);
 
     if (!word) return;
@@ -64,7 +66,7 @@ const SearchForm: React.FC<SearchProps> = ({ searchWord, searchImage, images, re
           <form className={`search-form__form ${loggedStyle_form}`} action='' onSubmit={onSubmit}>
             {/* <label htmlFor=''>Search For a Word</label> */}
             <div className='search-form__input-wrapper'>
-              <input placeholder='Search For a Word' className='search-form__input' type='text' value={word} onChange={(e) => setWord(e.target.value)} />
+              <input placeholder='Search For a Word' className='search-form__input' type='text' value={word} onChange={(e) => setWord(e.target.value.trim().toLowerCase())} />
               <div className='search-form__logo'>
                 <SearchLogo />
               </div>
