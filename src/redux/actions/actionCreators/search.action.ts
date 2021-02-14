@@ -15,10 +15,12 @@ export const searchWord = (word: string) => {
     try {
       const response = await axios.get(process.env.REACT_APP_API_ENDPOINT + '/search/' + word);
       if (response.data.success === false) {
+        alert('response data success false');
         throw new Error('Your search terms did not match any entries.');
       }
 
       const returnedData = response.data.map((word: Word) => {
+        alert(`responseData: ${response.data}`);
         return {
           word: word.word,
           definition: word.text,
