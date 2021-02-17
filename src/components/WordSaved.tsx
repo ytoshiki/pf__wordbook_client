@@ -45,10 +45,16 @@ const WordSaved: React.FC<WordSavedProps> = ({ list, loading, getList, deleteLis
     <div className='note-preview'>
       {list && (
         <div>
-          <div>
+          <div className='note-preview__wrapper'>
             <h2 className='note-preview__word'>{list.word}</h2>
+            <small>examples</small>
             <ul>{exampleArray}</ul>
-            {list.memo && <p className='note-preview__memo'>{list.memo}</p>}
+            {list.memo && (
+              <div className='note-preview__memo'>
+                <small>memo</small>
+                <p>{list.memo}</p>
+              </div>
+            )}
           </div>
           <div>
             <button onClick={onClick} className='note-preview__delete'>

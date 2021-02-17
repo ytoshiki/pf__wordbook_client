@@ -28,7 +28,8 @@ export const userReducer = (state: UserState = initialState, action: UserAction)
           name: action.payload.user,
           token: action.payload.token
         },
-        loading: false
+        loading: false,
+        error: null
       };
     case UserTypes.SIGN_IN:
       return {
@@ -37,7 +38,8 @@ export const userReducer = (state: UserState = initialState, action: UserAction)
           name: action.payload.user,
           token: action.payload.token
         },
-        loading: false
+        loading: false,
+        error: null
       };
     case UserTypes.LOG_OUT:
       return {
@@ -46,7 +48,8 @@ export const userReducer = (state: UserState = initialState, action: UserAction)
           name: '',
           token: ''
         },
-        loading: false
+        loading: false,
+        error: null
       };
     case UserTypes.ACTION_ERROR:
       return {

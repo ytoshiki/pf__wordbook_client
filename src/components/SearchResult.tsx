@@ -55,6 +55,18 @@ const SearchResult: React.FC<SearchProps> = ({ result, images, loading, resetSea
     <div className='search-result'>
       <div className='wrapper'>
         <div className='search-result__inner'>
+          {loading && (
+            <div className='sk-chase-wrapper'>
+              <div className='sk-chase'>
+                <div className='sk-chase-dot'></div>
+                <div className='sk-chase-dot'></div>
+                <div className='sk-chase-dot'></div>
+                <div className='sk-chase-dot'></div>
+                <div className='sk-chase-dot'></div>
+                <div className='sk-chase-dot'></div>
+              </div>
+            </div>
+          )}
           {error && <div className='no-match'>{error}</div>}
           {!wordSearched && !images.length && !error && (
             <div className='prior-message'>
@@ -75,7 +87,7 @@ const SearchResult: React.FC<SearchProps> = ({ result, images, loading, resetSea
               </div>
             </div>
           )}
-          {loading && <div>loading...</div>}
+
           {wordSearched && <h2 className='search-result__heading'>{wordSearched}</h2>}
           {definitionList}
           {images && (

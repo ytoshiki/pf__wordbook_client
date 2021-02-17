@@ -5,12 +5,23 @@
   border-radius: 0.3rem;
 
   &__word {
-    font-size: 3.5rem;
+    font-size: 4rem;
     margin: 2rem 0;
+  }
+
+  &__wrapper {
+    border-bottom: 1px solid rgba(184, 180, 180, 0.472);
+    padding-bottom: 2rem;
   }
 
   ul {
     margin-left: 2rem;
+  }
+
+  small {
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 1rem;
   }
 
   &__example {
@@ -33,5 +44,9 @@
 
   &__memo {
     margin: 3rem 0;
+
+    p {
+      font-size: 1.8rem;
+    }
   }
 }

@@ -36,7 +36,7 @@ export const searchWord = (word: string) => {
     } catch (error) {
       dispatch({
         type: SearchTypes.ACTION_ERROR,
-        payload: error.message
+        payload: 'Your search terms did not match any entries'
       });
     }
   };
@@ -64,7 +64,7 @@ export const searchImage = (word: string) => {
     } catch (error) {
       dispatch({
         type: SearchTypes.ACTION_ERROR,
-        payload: error.message
+        payload: 'Your search terms did not match any entries'
       });
     }
   };

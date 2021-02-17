@@ -57,13 +57,15 @@ export const wordListReducer = (state: WordListState = initialState, action: Wor
     case WordListTypes.ACTION_START:
       return {
         ...state,
-        loading: true
+        loading: true,
+        message: ''
       };
     case WordListTypes.ACTION_ERROR:
       return {
         ...state,
         loading: false,
-        error: action.payload
+        error: action.payload,
+        message: ''
       };
     case WordListTypes.SAVE_LIST:
       return {

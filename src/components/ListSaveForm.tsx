@@ -151,7 +151,7 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
           </div>
         </div>
       )}
-      <h3 className='save-form__heading'>Add To Word List</h3>
+      <h3 className='save-form__heading'>Add Words</h3>
       <form className='save-form__form' onSubmit={onSubmit}>
         <div className='save-form__block'>
           <label htmlFor=''>

@@ -19,7 +19,7 @@ const QuizBar: React.FC<QuizProps> = ({ lists }) => {
           Start Quizes
         </Link>
       ) : (
-        <div className='quiz-bar__suggest'>Let's create your word list!</div>
+        <div className='quiz-bar__suggest'></div>
       )}
     </div>
   );

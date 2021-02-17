@@ -28,9 +28,8 @@ const ListNavigation: React.FC<ListNavigationProps> = ({ getLists, lists, loadin
 
   useEffect(() => {
     getLists();
-
-    setIsSuccess(success);
-  }, [getLists, setIsSuccess, success, sortList]);
+    // setIsSuccess(success);
+  }, [getLists, success, sortList]);
 
   const onClick = () => {
     if (sortList.length > 0) {
@@ -63,15 +62,15 @@ const ListNavigation: React.FC<ListNavigationProps> = ({ getLists, lists, loadin
     setSortList(defaultListArray.sort(compare));
   };
 
-  const wordList =
-    lists &&
-    lists.map((list) => {
-      return (
-        <li key={list.id} className='list-navigation__item'>
-          <Link to={`/note/${list.id}`}>{list.word}</Link>
-        </li>
-      );
-    });
+  const wordList = lists[0].id
+    ? lists.map((list) => {
+        return (
+          <li key={list.id} className='list-navigation__item'>
+            <Link to={`/note/${list.id}`}>{list.word}</Link>
+          </li>
+        );
+      })
+    : false;
 
   const sortedList = sortList
     ? sortList.map((list) => {
