@@ -23,7 +23,6 @@ interface SortedList {
 }
 
 const ListNavigation: React.FC<ListNavigationProps> = ({ getLists, lists, loading, success }) => {
-  const [isSuccess, setIsSuccess] = useState<string | null>('');
   const [sortList, setSortList] = useState<SortedList[]>([]);
 
   useEffect(() => {
@@ -62,16 +61,15 @@ const ListNavigation: React.FC<ListNavigationProps> = ({ getLists, lists, loadin
     setSortList(defaultListArray.sort(compare));
   };
 
-  const wordList = lists[0].id
-    ? lists.map((list) => {
-        return (
-          <li key={list.id} className='list-navigation__item'>
-            <Link to={`/note/${list.id}`}>{list.word}</Link>
-          </li>
-        );
-      })
-    : false;
-
+  const wordList =
+    lists &&
+    lists.map((list) => {
+      return (
+        <li key={list.id} className='list-navigation__item'>
+          <Link to={`/note/${list.id}`}>{list.word}</Link>
+        </li>
+      );
+    });
   const sortedList = sortList
     ? sortList.map((list) => {
         return (
