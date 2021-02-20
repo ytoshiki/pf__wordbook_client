@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import '../styles/components/ListNavigation.scss';
 import { ReactComponent as DateIcon } from '../assets/images/date.svg';
 import { ReactComponent as AlphabetIcon } from '../assets/images/alphabet.svg';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ListNavigationProps {
   getLists: any;
@@ -102,6 +103,7 @@ const ListNavigation: React.FC<ListNavigationProps> = ({ getLists, lists, loadin
         {sortList.length > 0 ? 'date' : 'alphabet'}
         {sortList.length > 0 ? dateSortIcon : alphabetIcon}
       </button>
+
       <ul className='list-navigation__list'>{sortList.length > 0 ? sortedList : wordList}</ul>
     </div>
   );

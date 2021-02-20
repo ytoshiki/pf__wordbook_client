@@ -24,8 +24,14 @@ const SearchForm: React.FC<SearchProps> = ({ searchWord, searchImage, images, re
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    console.log(word);
+
+    console.log(result);
+
     if (!word) return;
     history.push('/');
+
+    console.log(result.definitions);
 
     if (images.length > 0 && result.definitions.length > 0) {
       resetSearch();
@@ -38,8 +44,10 @@ const SearchForm: React.FC<SearchProps> = ({ searchWord, searchImage, images, re
 
       searchWord(word);
     } else if (button === 2) {
-      if (result.definitions[0].word !== word) {
-        resetSearch();
+      if (result.definitions.length) {
+        if (result.definitions[0].word !== word) {
+          resetSearch();
+        }
       }
 
       setImageName(word);
