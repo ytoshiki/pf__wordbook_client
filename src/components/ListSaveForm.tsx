@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { saveList, logout } from '../redux';
-import '../styles/components/ListSaveForm.scss';
-import { State } from '../types/state';
+import { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { saveList, logout } from "../redux";
+import "../styles/components/ListSaveForm.scss";
+import { State } from "../types/state";
 
 interface FormState {
   word: string;
@@ -18,42 +18,42 @@ interface SaveFormProps {
 
 const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
   const [form, setForm] = useState<FormState>({
-    word: '',
+    word: "",
     examples: [],
-    memo: null
+    memo: null,
   });
 
-  const [example, setExample] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState('');
+  const [example, setExample] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState("");
   const [focus, setOnFocus] = useState(false);
-  const [errMsg, setErrMsg] = useState('');
+  const [errMsg, setErrMsg] = useState("");
   const [error, setError] = useState({
-    word: '',
-    sentense: ''
+    word: "",
+    sentense: "",
   });
 
   useEffect(() => {
-    setExample('');
+    setExample("");
     setForm({
-      word: '',
+      word: "",
       examples: [],
-      memo: null
+      memo: null,
     });
-    setIsLoggedIn(sessionStorage.getItem('jwt') || '');
+    setIsLoggedIn(sessionStorage.getItem("jwt") || "");
   }, [setIsLoggedIn, user]);
 
   const wordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const wordSaved = e.target.value.trim().toLowerCase();
     setForm({
       ...form,
-      word: wordSaved
+      word: wordSaved,
     });
   };
 
   const memoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setForm({
       ...form,
-      memo: e.target.value
+      memo: e.target.value,
     });
   };
 
@@ -61,14 +61,14 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
     e.preventDefault();
     if (!example) return;
     const sentence = example.trim();
-    if (sentence.split(' ').length < 2) {
+    if (sentence.split(" ").length < 2) {
       return;
     }
     setForm({
       ...form,
-      examples: form.examples.concat(example)
+      examples: form.examples.concat(example),
     });
-    setExample('');
+    setExample("");
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -76,26 +76,26 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
     if (!form.word) {
       setError({
         ...error,
-        word: 'Word is missing'
+        word: "Word is missing",
       });
 
       return;
     }
 
     if (form.examples.length < 1) {
-      if (example && example.trim().split(' ').length > 1) {
+      if (example && example.trim().split(" ").length > 1) {
         setForm({
           ...form,
-          examples: form.examples.concat(example)
+          examples: form.examples.concat(example),
         });
 
-        setErrMsg('Click Again');
+        setErrMsg("Click Again");
 
         return;
       } else {
         setError({
           ...error,
-          sentense: 'At least 2 words required'
+          sentense: "At least 2 words required",
         });
         return;
       }
@@ -103,9 +103,9 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
       await saveList(form);
       setForm({
         ...form,
-        word: '',
+        word: "",
         memo: null,
-        examples: []
+        examples: [],
       });
     }
   };
@@ -129,21 +129,21 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
   };
 
   return (
-    <div className='save-form' onClick={(e) => onClickOpen(e)}>
+    <div className="save-form" onClick={(e) => onClickOpen(e)}>
       {focus && (
-        <div className='save-form__modal'>
-          <div className='save-form__modal-inner'>
-            <button className='close' onClick={onClickClose}>
+        <div className="save-form__modal">
+          <div className="save-form__modal-inner">
+            <button className="close" onClick={onClickClose}>
               Got It
             </button>
-            <div className='save-form__modal-content'>
+            <div className="save-form__modal-content">
               You need to register your account.
               <br />
-              <Link to='/signup' className='link'>
+              <Link to="/signup" className="link">
                 sign up
               </Link>
               or
-              <Link to='/signin' className='link'>
+              <Link to="/signin" className="link">
                 sign in
               </Link>
               to use this functionality!
@@ -151,31 +151,64 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
           </div>
         </div>
       )}
-      <h3 className='save-form__heading'>Add Words</h3>
-      <form className='save-form__form' onSubmit={onSubmit}>
-        <div className='save-form__block'>
-          <label htmlFor=''>
-            word <span className='mandatory mandatory-main'>*</span>
+      <h3 className="save-form__heading">単語帳に追加</h3>
+      <form className="save-form__form" onSubmit={onSubmit}>
+        <div className="save-form__block">
+          <label htmlFor="">
+            単語 <span className="mandatory mandatory-main">*</span>
           </label>
-          <input type='text' disabled={isLoggedIn ? false : true} name='word' onChange={wordChange} value={form.word} />
+          <input
+            type="text"
+            disabled={isLoggedIn ? false : true}
+            name="word"
+            onChange={wordChange}
+            value={form.word}
+            placeholder="football"
+          />
         </div>
-        <div className='save-form__block'>
-          <label htmlFor=''>
-            sentense <span className='mandatory-main'>*</span> <span className='warning'>Please press Add</span>
+        <div className="save-form__block">
+          <label htmlFor="">
+            センテンス <span className="mandatory-main">*</span>{" "}
+            <span className="warning">Please press Add</span>
           </label>
-          {form.examples && form.examples.map((example, index) => <div key={index}>{example}</div>)}
-          <input placeholder='Two words at least' type='text' disabled={isLoggedIn ? false : true} name='example' onChange={(e) => exampleChange(e)} value={example} />
-          <div className={`add ${(!example || example.trim().split(' ').length < 2) && 'disable'}`} onClick={addExample}>
-            Add <span className='mandatory'>*</span>
+          {form.examples &&
+            form.examples.map((example, index) => (
+              <div key={index}>{example}</div>
+            ))}
+          <input
+            placeholder="I play football."
+            type="text"
+            disabled={isLoggedIn ? false : true}
+            name="example"
+            onChange={(e) => exampleChange(e)}
+            value={example}
+          />
+          <div
+            className={`add ${
+              (!example || example.trim().split(" ").length < 2) && "disable"
+            }`}
+            onClick={addExample}
+          >
+            保存<span className="mandatory">*</span>
           </div>
         </div>
 
-        <div className='save-form__block'>
-          <label htmlFor=''>memo</label>
-          <textarea name='memo' disabled={isLoggedIn ? false : true} id='' onChange={memoChange} value={form.memo || ''}></textarea>
+        <div className="save-form__block">
+          <label htmlFor="">メモ</label>
+          <textarea
+            name="memo"
+            disabled={isLoggedIn ? false : true}
+            id=""
+            onChange={memoChange}
+            value={form.memo || ""}
+            placeholder="It is a very popular sport."
+          ></textarea>
         </div>
-        <button className='save-form__save' disabled={!form.word || form.examples.length < 1 ? true : false}>
-          Save
+        <button
+          className="save-form__save"
+          disabled={!form.word || form.examples.length < 1 ? true : false}
+        >
+          単語帳に保存
         </button>
         {errMsg && <p>Ops! {errMsg}</p>}
       </form>
@@ -185,13 +218,13 @@ const ListSaveForm: React.FC<SaveFormProps> = ({ saveList, user }) => {
 
 const mapStateToProps = (state: State) => {
   return {
-    user: state.user.user
+    user: state.user.user,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    saveList: (data: FormState) => dispatch(saveList(data))
+    saveList: (data: FormState) => dispatch(saveList(data)),
   };
 };
 

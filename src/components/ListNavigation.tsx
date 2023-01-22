@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { getLists } from '../redux';
-import { State } from '../types/state';
-import { Link } from 'react-router-dom';
-import '../styles/components/ListNavigation.scss';
-import { ReactComponent as DateIcon } from '../assets/images/date.svg';
-import { ReactComponent as AlphabetIcon } from '../assets/images/alphabet.svg';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { getLists } from "../redux";
+import { State } from "../types/state";
+import { Link } from "react-router-dom";
+import "../styles/components/ListNavigation.scss";
+import { ReactComponent as DateIcon } from "../assets/images/date.svg";
+import { ReactComponent as AlphabetIcon } from "../assets/images/alphabet.svg";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ListNavigationProps {
   getLists: any;
@@ -23,7 +23,12 @@ interface SortedList {
   id: string;
 }
 
-const ListNavigation: React.FC<ListNavigationProps> = ({ getLists, lists, loading, success }) => {
+const ListNavigation: React.FC<ListNavigationProps> = ({
+  getLists,
+  lists,
+  loading,
+  success,
+}) => {
   const [sortList, setSortList] = useState<SortedList[]>([]);
 
   useEffect(() => {
@@ -42,7 +47,10 @@ const ListNavigation: React.FC<ListNavigationProps> = ({ getLists, lists, loadin
 
     const defaultListArray = Object.values(SortedLists[0]);
 
-    function compare(a: { word: string; id: string }, b: { word: string; id: string }) {
+    function compare(
+      a: { word: string; id: string },
+      b: { word: string; id: string }
+    ) {
       const wordA = a.word.toUpperCase();
       const wordB = b.word.toUpperCase();
 
@@ -66,7 +74,7 @@ const ListNavigation: React.FC<ListNavigationProps> = ({ getLists, lists, loadin
     lists &&
     lists.map((list) => {
       return (
-        <li key={list.id} className='list-navigation__item'>
+        <li key={list.id} className="list-navigation__item">
           <Link to={`/note/${list.id}`}>{list.word}</Link>
         </li>
       );
@@ -74,7 +82,7 @@ const ListNavigation: React.FC<ListNavigationProps> = ({ getLists, lists, loadin
   const sortedList = sortList
     ? sortList.map((list) => {
         return (
-          <li key={list.id} className='list-navigation__item'>
+          <li key={list.id} className="list-navigation__item">
             <Link to={`/note/${list.id}`}>{list.word}</Link>
           </li>
         );
@@ -82,29 +90,31 @@ const ListNavigation: React.FC<ListNavigationProps> = ({ getLists, lists, loadin
     : null;
 
   const dateSortIcon = (
-    <div className='list-navigation__sort'>
-      <div className='list-navigation__icon'>
+    <div className="list-navigation__sort">
+      <div className="list-navigation__icon">
         <DateIcon />
       </div>
     </div>
   );
   const alphabetIcon = (
-    <div className='list-navigation__sort'>
-      <div className='list-navigation__icon'>
+    <div className="list-navigation__sort">
+      <div className="list-navigation__icon">
         <AlphabetIcon />
       </div>
     </div>
   );
 
   return (
-    <div className='list-navigation'>
-      <h3 className='list-navigation__heading'>Word list</h3>
-      <button className='list-navigation__sort-button' onClick={onClick}>
-        {sortList.length > 0 ? 'date' : 'alphabet'}
+    <div className="list-navigation">
+      <h3 className="list-navigation__heading">単語帳</h3>
+      <button className="list-navigation__sort-button" onClick={onClick}>
+        {sortList.length > 0 ? "date" : "alphabet"}
         {sortList.length > 0 ? dateSortIcon : alphabetIcon}
       </button>
 
-      <ul className='list-navigation__list'>{sortList.length > 0 ? sortedList : wordList}</ul>
+      <ul className="list-navigation__list">
+        {sortList.length > 0 ? sortedList : wordList}
+      </ul>
     </div>
   );
 };
@@ -113,13 +123,13 @@ const mapStateToProps = (store: State) => {
   return {
     lists: store.wordList.lists,
     loading: store.wordList.loading,
-    success: store.wordList.message
+    success: store.wordList.message,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getLists: () => dispatch(getLists())
+    getLists: () => dispatch(getLists()),
   };
 };
 

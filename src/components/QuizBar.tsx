@@ -1,7 +1,7 @@
-import { State } from '../types/state';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import '../styles/components/QuizBar.scss';
+import { State } from "../types/state";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import "../styles/components/QuizBar.scss";
 
 interface QuizProps {
   lists: {
@@ -12,14 +12,14 @@ interface QuizProps {
 
 const QuizBar: React.FC<QuizProps> = ({ lists }) => {
   return (
-    <div className='quiz-bar'>
-      <h3 className='quiz-bar__heading'>Quiz</h3>
+    <div className="quiz-bar">
+      <h3 className="quiz-bar__heading">クイズ</h3>
       {lists.length > 0 ? (
-        <Link to='/quiz' className='quiz-bar__take'>
-          Start Quizes
+        <Link to="/quiz" className="quiz-bar__take">
+          スタート
         </Link>
       ) : (
-        <div className='quiz-bar__suggest'></div>
+        <div className="quiz-bar__suggest"></div>
       )}
     </div>
   );
@@ -27,7 +27,7 @@ const QuizBar: React.FC<QuizProps> = ({ lists }) => {
 
 const mapStateToProps = (store: State) => {
   return {
-    lists: store.wordList.lists
+    lists: store.wordList.lists,
   };
 };
 
